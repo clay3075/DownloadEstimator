@@ -1,0 +1,22 @@
+﻿<Window x:Class="DownloadEstimator.DownloadEstimation"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:DownloadEstimator"
+        mc:Ignorable="d"
+        Title="Download Estimation" Height="250" Width="400"
+        d:DataContext="{d:DesignInstance d:Type=local:DownloadEstimation, IsDesignTimeCreatable=True}">
+    <StackPanel Orientation="Vertical" DataContext="">
+        <StackPanel VerticalAlignment="Top" Orientation="Horizontal">
+            <Label Margin="15" Height="30" FontSize="18">Download size in GB</Label>
+            <TextBox Height="30" Margin="15" Width="100" FontSize="20" Name="DownloadSizeInGB" TextChanged="TextBoxBase_OnTextChanged"></TextBox>
+        </StackPanel>
+        <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+            <Label>Download Speed: </Label><Label Name="DownloadSpeed" /><Label> Mbps</Label>
+        </StackPanel>
+        <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+            <Label>Estimated Time Remaining: </Label><Label Name="TimeRemaining" />
+        </StackPanel>
+    </StackPanel>
+</Window>

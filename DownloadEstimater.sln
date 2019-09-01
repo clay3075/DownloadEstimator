@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DownloadEstimator", "DownloadEstimator\DownloadEstimator.csproj", "{6F9B99EF-9C4D-4116-8F78-6B93A81DD296}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DownloadEstimatorTests", "DownloadEstimatorTests\DownloadEstimatorTests.csproj", "{E9ABA3F0-EE61-40B4-8E97-A8DAC7367574}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6F9B99EF-9C4D-4116-8F78-6B93A81DD296}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F9B99EF-9C4D-4116-8F78-6B93A81DD296}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F9B99EF-9C4D-4116-8F78-6B93A81DD296}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F9B99EF-9C4D-4116-8F78-6B93A81DD296}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9ABA3F0-EE61-40B4-8E97-A8DAC7367574}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9ABA3F0-EE61-40B4-8E97-A8DAC7367574}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9ABA3F0-EE61-40B4-8E97-A8DAC7367574}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9ABA3F0-EE61-40B4-8E97-A8DAC7367574}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

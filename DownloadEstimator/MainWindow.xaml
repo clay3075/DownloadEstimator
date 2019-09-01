@@ -1,0 +1,38 @@
+﻿<Window x:Class="DownloadEstimator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DownloadEstimator"
+        mc:Ignorable="d"
+        Title="Download Estimator" Height="450" Width="450">
+
+    <Grid>
+        <Grid.ColumnDefinitions> 
+            <ColumnDefinition Width = "Auto" /> 
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions> 
+        <Grid.RowDefinitions> 
+            <RowDefinition Height = "55" /> 
+            <RowDefinition Height = "*" /> 
+        </Grid.RowDefinitions> 
+        
+        <StackPanel Grid.Row="0" Grid.Column="0">
+            <Label>Search</Label>
+            <StackPanel Orientation="Horizontal">
+                <TextBox Name="Filter" TextChanged="Filter_OnTextChanged" Margin="5" Height="18" FontSize="14" Width="260"></TextBox>
+                <Button Click="Refresh_OnClick" Width="20" Height="20" FontSize="10" VerticalContentAlignment="Top" Content="&#10227;"></Button>
+            </StackPanel>
+        </StackPanel>
+        <ListView Grid.Row="1" Grid.Column="0" Name="ProcessList" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Process Name" DisplayMemberBinding="{Binding Name}" Width="200"></GridViewColumn>
+                    <GridViewColumn Header="PID" DisplayMemberBinding="{Binding PID}" Width="80"></GridViewColumn>
+                    <GridViewColumn Header="Window Title" DisplayMemberBinding="{Binding WindowTitle}" Width="130"></GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+
+</Window>
