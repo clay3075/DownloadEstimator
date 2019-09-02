@@ -93,7 +93,7 @@ namespace DownloadEstimator
 
             downloadSize = new DownloadSize(DownloadEstimator.DownloadSize.Type.MegaBit, downloadSize.MegaBits - (downloadSpeed.Mbps * 0.5));
 
-            return $"{downloadSize.ConvertTo(downloadSizeUnit):F2}";
+            return downloadSize.Bits >= 0 ? $"{downloadSize.ConvertTo(downloadSizeUnit):F2}" : "0.00";
         }
 
         private void TextBoxBase_OnTextChanged(object sender, TextChangedEventArgs e)
