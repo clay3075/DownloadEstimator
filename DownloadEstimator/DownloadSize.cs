@@ -51,5 +51,22 @@ namespace DownloadEstimator
                 return ret;
             }
         }
+
+        public double ConvertTo(Type type)
+        {
+            var conversions = new Dictionary<Type, double>
+            {
+                {Type.Bit, Bits},
+                {Type.Byte, Bytes},
+                {Type.KiloBit, KiloBits},
+                {Type.KiloByte, KiloBytes},
+                {Type.MegaBit, MegaBits},
+                {Type.MegaByte, MegaBytes},
+                {Type.GigaBit, GigaBits},
+                {Type.GigaByte, GigaBytes}
+            };
+
+            return conversions[type];
+        }
     }
 }

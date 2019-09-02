@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.Remoting.Channels;
@@ -17,13 +18,35 @@ namespace DownloadEstimator
         public DownloadEstimation(int pid)
         {
             InitializeComponent();
+            InitDownloadSizeUnitDropdown();
             var process = Process.GetProcessById(pid);
             _readByteSec = new PerformanceCounter("Process", "IO Read Bytes/sec", GetProcessInstanceName(process.Id));
-            DownloadSizeInGB.Text = "0";
+            DownloadSize.Text = "0";
             DownloadSpeed.Content = "0";
             InitNetworkSpeedTimer();
         }
-        
+
+        private void InitDownloadSizeUnitDropdown()
+        {
+            var units = new List<DownloadSize.Type>
+            {
+                DownloadEstimator.DownloadSize.Type.Bit, DownloadEstimator.DownloadSize.Type.Byte,
+                DownloadEstimator.DownloadSize.Type.KiloBit,
+                DownloadEstimator.DownloadSize.Type.KiloByte, DownloadEstimator.DownloadSize.Type.MegaBit,
+                DownloadEstimator.DownloadSize.Type.MegaByte,
+                DownloadEstimator.DownloadSize.Type.GigaBit, DownloadEstimator.DownloadSize.Type.GigaByte
+            };
+            foreach (var unit in units)
+            {
+                var name = Enum.GetName(typeof(DownloadEstimator.DownloadSize.Type), unit);
+                var value = unit;
+
+                DownloadSizeUnit.Items.Add(new ComboBoxItem() {Content = name, Tag = value});
+            }
+
+            DownloadSizeUnit.SelectedIndex = 7;
+        }
+
         private static string GetProcessInstanceName(int pid)
         {
             var cat = new PerformanceCounterCategory("Process");
@@ -55,20 +78,20 @@ namespace DownloadEstimator
         private void UpdateNetworkSpeedTimerOnElapsed(object sender, EventArgs e)
         {
             DownloadSpeed.Content = GetDownloadSpeed();
-            if (DownloadSizeInGB.IsFocused) 
+            if (DownloadSize.IsFocused) 
                 return;
             
-            DownloadSizeInGB.Text = GetNewDownloadSize();
+            DownloadSize.Text = GetNewDownloadSize();
             TimeRemaining.Content = GetTimeRemaining();
         }
 
         private string GetNewDownloadSize()
         {
-            var downloadSize = new DownloadSize(DownloadSize.Type.GigaByte, double.Parse(DownloadSizeInGB.Text));
+            var downloadSize = new DownloadSize(DownloadEstimator.DownloadSize.Type.GigaByte, double.Parse(DownloadSize.Text));
             var downloadSpeed = new DownloadSpeed(DownloadEstimator.DownloadSpeed.Type.Mbps, double.Parse(DownloadSpeed.Content.ToString()));
 
             return
-                $"{new DownloadSize(DownloadSize.Type.MegaBit, downloadSize.MegaBits - (downloadSpeed.Mbps * 0.5)).GigaBytes:F2}";
+                $"{new DownloadSize(DownloadEstimator.DownloadSize.Type.MegaBit, downloadSize.MegaBits - (downloadSpeed.Mbps * 0.5)).GigaBytes:F2}";
         }
 
         private void TextBoxBase_OnTextChanged(object sender, TextChangedEventArgs e)
@@ -78,10 +101,10 @@ namespace DownloadEstimator
 
         private string GetTimeRemaining()
         {
-            if (DownloadSpeed.Content == null || string.IsNullOrEmpty(DownloadSizeInGB.Text))
+            if (DownloadSpeed.Content == null || string.IsNullOrEmpty(DownloadSize.Text))
                 return "";
             
-            var downloadSize = new DownloadSize(DownloadSize.Type.GigaByte, double.Parse(DownloadSizeInGB.Text));
+            var downloadSize = new DownloadSize(DownloadEstimator.DownloadSize.Type.GigaByte, double.Parse(DownloadSize.Text));
             var downloadSpeed = new DownloadSpeed(DownloadEstimator.DownloadSpeed.Type.Mbps,double.Parse((string)DownloadSpeed.Content));
             if (Math.Abs(downloadSpeed.BitsPerSecond) < .001)
                 return "0.00";
@@ -96,15 +119,6 @@ namespace DownloadEstimator
             var downloadSpeed = DownloadCalculations.GetProcessDownloadSpeed(_readByteSec);
             
             return $"{downloadSpeed.Mbps:F2}";
-        }
-
-        private void DownloadSizeInGB_OnKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key != Key.Enter) 
-                return;
-            
-            MainPanel.Focusable = true;
-            MainPanel.Focus();
         }
     }
 }

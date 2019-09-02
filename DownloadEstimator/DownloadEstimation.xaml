@@ -7,10 +7,11 @@
         mc:Ignorable="d"
         Title="Download Estimation" Height="250" Width="400"
         d:DataContext="{d:DesignInstance d:Type=local:DownloadEstimation, IsDesignTimeCreatable=True}">
-    <StackPanel Name="MainPanel" Orientation="Vertical" DataContext="">
+    <StackPanel Orientation="Vertical" DataContext="">
         <StackPanel VerticalAlignment="Top" Orientation="Horizontal">
-            <Label Margin="15" Height="30" FontSize="18">Download size in GB</Label>
-            <TextBox Height="30" Margin="15" Width="100" FontSize="20" Name="DownloadSizeInGB" KeyDown="DownloadSizeInGB_OnKeyDown" TextChanged="TextBoxBase_OnTextChanged"></TextBox>
+            <Label Margin="15" Height="30" FontSize="18">Download size: </Label>
+            <TextBox Height="30" Margin="15" Width="100" FontSize="20" Name="DownloadSize" TextChanged="TextBoxBase_OnTextChanged"></TextBox>
+            <ComboBox Name="DownloadSizeUnit" Height="30"></ComboBox>
         </StackPanel>
         <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
             <Label>Download Speed: </Label><Label Name="DownloadSpeed" /><Label Name="DownloadSpeedUnit" Content="Mbps"></Label>

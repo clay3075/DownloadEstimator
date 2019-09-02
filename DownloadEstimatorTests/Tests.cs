@@ -99,6 +99,15 @@ namespace DownloadEstimatorTests
             Assert.AreEqual(1.25e-7, downloadSize.MegaBytes);
             Assert.AreEqual(1e-9, downloadSize.GigaBits);
             Assert.AreEqual(1.25e-10, downloadSize.GigaBytes);
+            
+            Assert.AreEqual(downloadSize.Bits, downloadSize.ConvertTo(DownloadSize.Type.Bit));
+            Assert.AreEqual(downloadSize.Bytes, downloadSize.ConvertTo(DownloadSize.Type.Byte));
+            Assert.AreEqual(downloadSize.KiloBits, downloadSize.ConvertTo(DownloadSize.Type.KiloBit));
+            Assert.AreEqual(downloadSize.KiloBytes, downloadSize.ConvertTo(DownloadSize.Type.KiloByte));
+            Assert.AreEqual(downloadSize.MegaBits, downloadSize.ConvertTo(DownloadSize.Type.MegaBit));
+            Assert.AreEqual(downloadSize.MegaBytes, downloadSize.ConvertTo(DownloadSize.Type.MegaByte));
+            Assert.AreEqual(downloadSize.GigaBits, downloadSize.ConvertTo(DownloadSize.Type.GigaBit));
+            Assert.AreEqual(downloadSize.GigaBytes, downloadSize.ConvertTo(DownloadSize.Type.GigaByte));
         }
         
         [Test]
