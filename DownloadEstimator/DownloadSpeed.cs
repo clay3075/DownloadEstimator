@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DownloadEstimator
 {
@@ -32,28 +33,13 @@ namespace DownloadEstimator
         public double BitsPerSecond
         {
             get {
-                var ret = _speed;
+                var bytePerSecondTypes = new List<Type> {Type.BytePerSecond, Type.KBps, Type.MBps};
+                var kiloPerSecondTypes = new List<Type> {Type.Kbps, Type.KBps};
+                var megaPerSecondTypes = new List<Type> {Type.Mbps, Type.MBps};
 
-                switch (_type)
-                {
-                    case Type.BitPerSecond:
-                        break;
-                    case Type.BytePerSecond:
-                        ret = _speed * 8;
-                        break;
-                    case Type.Kbps:
-                        ret = _speed * Math.Pow(10, 3);
-                        break;
-                    case Type.KBps:
-                        ret = _speed * 8 * Math.Pow(10, 3);
-                        break;
-                    case Type.Mbps:
-                        ret = _speed * Math.Pow(10, 6);
-                        break;
-                    case Type.MBps:
-                        ret = _speed * 8 * Math.Pow(10, 6);
-                        break;
-                }
+                var ret = bytePerSecondTypes.Contains(_type) ? _speed * 8 : _speed;
+                ret = kiloPerSecondTypes.Contains(_type) ? ret * Math.Pow(10, 3) : ret;
+                ret = megaPerSecondTypes.Contains(_type) ? ret * Math.Pow(10, 6) : ret;
 
                 return ret;
             }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DownloadEstimator
 {
@@ -36,35 +37,16 @@ namespace DownloadEstimator
         public double Bits
         {
             get
-            {
-                var ret = _size;
+            { 
+                var byteTypes = new List<Type> {Type.Byte, Type.KiloByte, Type.MegaByte, Type.GigaByte};
+                var kiloTypes = new List<Type> {Type.KiloBit, Type.KiloByte};
+                var megaTypes = new List<Type> {Type.MegaBit, Type.MegaByte};
+                var gigaTypes = new List<Type> {Type.GigaBit, Type.GigaByte};
 
-                switch (_type)
-                {
-                    case Type.Bit:
-                        break;
-                    case Type.Byte:
-                        ret = _size * 8;
-                        break;
-                    case Type.KiloBit:
-                        ret = _size * Math.Pow(10, 3);
-                        break;
-                    case Type.KiloByte:
-                        ret = _size * 8 * Math.Pow(10, 3);
-                        break;
-                    case Type.MegaBit:
-                        ret = _size * Math.Pow(10, 6);
-                        break;
-                    case Type.MegaByte:
-                        ret = _size * 8 * Math.Pow(10, 6);
-                        break;
-                    case Type.GigaBit:
-                        ret = _size * Math.Pow(10, 9);
-                        break;
-                    case Type.GigaByte:
-                        ret = _size * 8 * Math.Pow(10, 9);
-                        break;
-                }
+                var ret = byteTypes.Contains(_type) ? _size * 8 : _size;
+                ret = kiloTypes.Contains(_type) ? ret * Math.Pow(10, 3) : ret;
+                ret = megaTypes.Contains(_type) ? ret * Math.Pow(10, 6) : ret;
+                ret = gigaTypes.Contains(_type) ? ret * Math.Pow(10, 9) : ret;
 
                 return ret;
             }
