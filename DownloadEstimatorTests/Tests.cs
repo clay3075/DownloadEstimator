@@ -17,6 +17,8 @@ namespace DownloadEstimatorTests
             Assert.AreEqual(0.000125, downloadSpeed.KBps);
             Assert.AreEqual(1e-6, downloadSpeed.Mbps);
             Assert.AreEqual(1.25e-7, downloadSpeed.MBps);
+            Assert.AreEqual(1e-9, downloadSpeed.Gbps);
+            Assert.AreEqual(1.25e-10, downloadSpeed.GBps);
         }
         
         [Test]
@@ -63,6 +65,22 @@ namespace DownloadEstimatorTests
         public void VerifyDownloadSpeedConversionsFromMegaBytePerSecond()
         {
             var downloadSpeed = new DownloadSpeed(DownloadSpeed.Type.MBps, 1.25e-7);
+
+            CheckAllConversionsAgainstOneBitPerSecond(downloadSpeed);
+        }
+        
+        [Test]
+        public void VerifyDownloadSpeedConversionsFromGigaBitPerSecond()
+        {
+            var downloadSpeed = new DownloadSpeed(DownloadSpeed.Type.Gbps, 1e-9);
+
+            CheckAllConversionsAgainstOneBitPerSecond(downloadSpeed);
+        }
+        
+        [Test]
+        public void VerifyDownloadSpeedConversionsFromGigaBytePerSecond()
+        {
+            var downloadSpeed = new DownloadSpeed(DownloadSpeed.Type.GBps, 1.25e-10);
 
             CheckAllConversionsAgainstOneBitPerSecond(downloadSpeed);
         }
