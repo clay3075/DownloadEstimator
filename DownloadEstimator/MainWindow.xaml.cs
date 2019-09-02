@@ -36,6 +36,9 @@ namespace DownloadEstimator
 
         private void ProcessListOnMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            if (ProcessList.SelectedItem == null)
+                return;
+            
             var downloadEstimationWindow = new DownloadEstimation(((SimpleProcess)ProcessList.SelectedItem).PID);
             downloadEstimationWindow.Show();
         }

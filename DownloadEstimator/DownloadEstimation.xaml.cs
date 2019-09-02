@@ -109,11 +109,12 @@ namespace DownloadEstimator
             var downloadSize = new DownloadSize(DownloadEstimator.DownloadSize.Type.GigaByte, double.Parse(DownloadSize.Text));
             var downloadSpeed = new DownloadSpeed(DownloadEstimator.DownloadSpeed.Type.Mbps,double.Parse((string)DownloadSpeed.Content));
             if (Math.Abs(downloadSpeed.BitsPerSecond) < .001)
-                return "0.00";
-            
-            var timeRemaining = DownloadCalculations.GetTimeRemaining(downloadSpeed, downloadSize);
+                return "00h:00m:00s";
 
-            return $"{timeRemaining:F2}";
+            var timeRemaining = TimeSpan.FromSeconds(DownloadCalculations.GetTimeRemaining(downloadSpeed, downloadSize));
+            
+            return
+                $"{timeRemaining.Hours:D2}h:{timeRemaining.Minutes:D2}m:{timeRemaining.Seconds:D2}s";
         }
 
         private string GetDownloadSpeed()
