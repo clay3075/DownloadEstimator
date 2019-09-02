@@ -18,6 +18,5 @@
         <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
             <Label>Estimated Time Remaining: </Label><Label Name="TimeRemaining" /><Label Name="TimeRemainingUnit" Content="seconds"></Label>
         </StackPanel>
-        <TextBox Visibility="Hidden" Name="TakeMe"></TextBox>
     </StackPanel>
 </Window>

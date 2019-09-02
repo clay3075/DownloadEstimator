@@ -166,6 +166,5 @@ namespace DownloadEstimatorTests
         }
 
         #endregion
-        
     }
 }
