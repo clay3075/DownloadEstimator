@@ -78,7 +78,7 @@ namespace DownloadEstimator
         private void UpdateNetworkSpeedTimerOnElapsed(object sender, EventArgs e)
         {
             DownloadSpeed.Content = GetDownloadSpeed();
-            if (DownloadSize.IsFocused) 
+            if (DownloadSize.IsKeyboardFocused) 
                 return;
             
             DownloadSize.Text = GetNewDownloadSize();
@@ -87,11 +87,13 @@ namespace DownloadEstimator
 
         private string GetNewDownloadSize()
         {
-            var downloadSize = new DownloadSize(DownloadEstimator.DownloadSize.Type.GigaByte, double.Parse(DownloadSize.Text));
+            var downloadSizeUnit = (DownloadSize.Type) ((ComboBoxItem) DownloadSizeUnit.SelectedItem).Tag;
+            var downloadSize = new DownloadSize(downloadSizeUnit, double.Parse(DownloadSize.Text));
             var downloadSpeed = new DownloadSpeed(DownloadEstimator.DownloadSpeed.Type.Mbps, double.Parse(DownloadSpeed.Content.ToString()));
 
-            return
-                $"{new DownloadSize(DownloadEstimator.DownloadSize.Type.MegaBit, downloadSize.MegaBits - (downloadSpeed.Mbps * 0.5)).GigaBytes:F2}";
+            downloadSize = new DownloadSize(DownloadEstimator.DownloadSize.Type.MegaBit, downloadSize.MegaBits - (downloadSpeed.Mbps * 0.5));
+
+            return $"{downloadSize.ConvertTo(downloadSizeUnit):F2}";
         }
 
         private void TextBoxBase_OnTextChanged(object sender, TextChangedEventArgs e)
@@ -119,6 +121,12 @@ namespace DownloadEstimator
             var downloadSpeed = DownloadCalculations.GetProcessDownloadSpeed(_readByteSec);
             
             return $"{downloadSpeed.Mbps:F2}";
+        }
+
+        private void DownloadSize_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                Keyboard.ClearFocus();
         }
     }
 }

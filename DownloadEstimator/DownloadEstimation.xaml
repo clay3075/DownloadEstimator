@@ -10,7 +10,7 @@
     <StackPanel Orientation="Vertical" DataContext="">
         <StackPanel VerticalAlignment="Top" Orientation="Horizontal">
             <Label Margin="15" Height="30" FontSize="18">Download size: </Label>
-            <TextBox Height="30" Margin="15" Width="100" FontSize="20" Name="DownloadSize" TextChanged="TextBoxBase_OnTextChanged"></TextBox>
+            <TextBox Height="30" Margin="15" Width="100" FontSize="20" Name="DownloadSize" KeyDown="DownloadSize_OnKeyDown" TextChanged="TextBoxBase_OnTextChanged"></TextBox>
             <ComboBox Name="DownloadSizeUnit" Height="30"></ComboBox>
         </StackPanel>
         <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
